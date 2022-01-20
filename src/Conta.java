@@ -7,11 +7,13 @@ public abstract class Conta implements IfConta{
 	protected int agencia;
 	protected int numConta;
 	protected double saldo;
+	protected Cliente cliente;
 	
-	public Conta() {
+	public Conta(Cliente cliente) {
 		this.agencia = AGENCIA_PADRAO;
 		this.numConta = SEQUENCIAL++;
 		this.saldo = 0;
+		this.cliente = cliente;
 	}
 
 	public int getAgencia() {
@@ -44,6 +46,7 @@ public abstract class Conta implements IfConta{
 	}
 	
 	protected void imprimirValores() {
+		System.out.println(String.format("Nome Cliente: %s", this.cliente.getNome()));
 		System.out.println(String.format("Agencia: %d", this.agencia));
 		System.out.println(String.format("Conta: %d", this.numConta));
 		System.out.println(String.format("Saldo: %.2f", this.saldo));

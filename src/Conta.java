@@ -27,7 +27,6 @@ public abstract class Conta implements IfConta{
 	public double getSaldo() {
 		return saldo;
 	}
-
 	
 	@Override
 	public void sacar(double valor) {

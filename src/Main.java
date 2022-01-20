@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -11,6 +12,7 @@ public class Main {
 		try (Scanner info = new Scanner(System.in)) {
 			
 			Cliente cliente = new Cliente();
+			Banco banco = new Banco();
 			
 			System.out.println("Informe o nome do cliente: ");
 			String cli = info.nextLine();
@@ -19,15 +21,30 @@ public class Main {
 			Conta cc = new ContaCorrente(cliente);
 			Conta cp = new ContaPoupanca(cliente);
 			
+			banco.contas.add(cc);
+			banco.contas.add(cp);
+			
 			do {
+				try {
+					new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				System.out.println("### SELECIONE A OPERAÇÃO DESEJADA ###");
 				System.out.println("1- Imprimir Extrato");
 				System.out.println("2- Depósito");
 				System.out.println("3- Saque");
 				System.out.println("4- Transferência");
+				System.out.println("5- Criar nova conta");
+				System.out.println("6- Listar contas existentes");
 				System.out.println("0 - SAIR");
 				
 				opt = info.nextInt();
+				cli = info.nextLine();
 				
 				switch(opt) {
 				
@@ -92,6 +109,26 @@ public class Main {
 						}
 						
 						break;	
+						
+					case 5:
+						
+						System.out.println("Informe o nome do cliente: ");
+						cli = info.nextLine();
+						cliente.setNome(cli); 
+					
+						cc = new ContaCorrente(cliente);
+						cp = new ContaPoupanca(cliente);
+						
+						banco.contas.add(cc);
+						banco.contas.add(cp);
+						
+						break;
+						
+					case 6:
+						
+						banco.listarContas();
+						
+						break;
 						
 					default:
 						
